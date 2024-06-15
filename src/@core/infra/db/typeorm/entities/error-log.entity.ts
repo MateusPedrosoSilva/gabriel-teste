@@ -9,5 +9,5 @@ export class ErrorLogTypeormEntity {
   occurred_at: Date;
 
   @Column()
-  cameda_id: string;
+  camera_id: string;
 }

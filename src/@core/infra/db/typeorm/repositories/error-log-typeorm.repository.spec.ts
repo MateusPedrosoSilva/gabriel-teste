@@ -1,8 +1,8 @@
 import { DataSource, Repository } from 'typeorm';
+import { v4 as uuidv4 } from 'uuid';
 import { ErrorLogTypeormRepository } from './error-log-typeorm.repository';
 import { ErrorLogTypeormEntity } from '../entities/error-log.entity';
-import { v4 as uuidv4 } from 'uuid';
-import { ErrorLog } from 'src/@core/domain/error-log';
+import { ErrorLog } from '../../../../domain/error-log';
 
 describe('ErrorLogTypeormRepository tests', () => {
   let dataSource: DataSource;
@@ -28,12 +28,13 @@ describe('ErrorLogTypeormRepository tests', () => {
   it('should insert a new error-log', async () => {
     const id = uuidv4();
     const occurred_at = new Date();
-    const cameda_id = uuidv4();
-    const errorLog = new ErrorLog(id, occurred_at, cameda_id);
+    const camera_id = uuidv4();
+    const errorLog = new ErrorLog(id, occurred_at, camera_id);
     await errorLogRepository.insert(errorLog);
     const model = await typeormRepository.findOneBy({ id });
+    expect(model).not.toBeNull();
     expect(model.id).toBe(id);
-    expect(model.occurred_at).toBe(occurred_at);
-    expect(model.cameda_id).toBe(cameda_id);
+    expect(model.occurred_at).toStrictEqual(occurred_at);
+    expect(model.camera_id).toBe(camera_id);
   });
 });

@@ -7,7 +7,7 @@ describe('Camera Unit Test', () => {
     const name = 'camera-1';
     const ip = '12.255.0.123';
     const isEnable = true;
-    const custumerId = '111';
+    const custumerId = uuidv4();
     const camera = new Camera(id, name, ip, isEnable, custumerId);
     expect(camera.id).toBe(id);
     expect(camera.name).toBe(name);

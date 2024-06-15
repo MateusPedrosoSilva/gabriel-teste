@@ -11,6 +11,5 @@ export class CameraTypeormRepository implements CameraRepository {
   async insert(camera: Camera): Promise<void> {
     const model = this.typeOrmRepository.create(camera);
     await this.typeOrmRepository.save(model);
-    console.log(model);
   }
 }

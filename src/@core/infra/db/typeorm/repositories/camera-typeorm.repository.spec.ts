@@ -2,7 +2,7 @@ import { DataSource, Repository } from 'typeorm';
 import { v4 as uuidv4 } from 'uuid';
 import { CameraTypeormEntity } from '../entities/camera.entity';
 import { CameraTypeormRepository } from './camera-typeorm.repository';
-import { Camera } from 'src/@core/domain/camera';
+import { Camera } from '../../../../domain/camera';
 
 describe('CameraTypeormRepository tests', () => {
   let dataSource: DataSource;
@@ -34,6 +34,7 @@ describe('CameraTypeormRepository tests', () => {
     const camera = new Camera(id, name, ip, isEnable, custumerId);
     await cameraRepository.insert(camera);
     const model = await typeormRepository.findOneBy({ id });
+    expect(model).not.toBeNull();
     expect(model.id).toBe(id);
     expect(model.name).toBe(name);
     expect(model.ip).toBe(ip);

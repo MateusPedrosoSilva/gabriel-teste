@@ -11,6 +11,5 @@ export class ErrorLogTypeormRepository implements ErrorLogRepository {
   async insert(errorLog: ErrorLog): Promise<void> {
     const model = this.typeOrmRepository.create(errorLog);
     await this.typeOrmRepository.save(model);
-    console.log(model);
   }
 }

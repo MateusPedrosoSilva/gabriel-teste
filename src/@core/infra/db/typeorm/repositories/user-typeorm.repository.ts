@@ -11,6 +11,5 @@ export class UserTypeOrmRepository implements UserRepository {
   async insert(user: User): Promise<void> {
     const model = this.typeOrmRepository.create(user);
     await this.typeOrmRepository.save(model);
-    console.log(model);
   }
 }

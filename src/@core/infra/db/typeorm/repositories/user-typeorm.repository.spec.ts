@@ -31,6 +31,7 @@ describe('UserTypeormRepository tests', () => {
     const user = new User(id, name);
     await userRepository.insert(user);
     const model = await typeormRepository.findOneBy({ id });
+    expect(model).not.toBeNull();
     expect(model.id).toBe(id);
     expect(model.name).toBe(name);
   });
