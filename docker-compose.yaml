@@ -24,6 +24,18 @@ services:
       POSTGRES_PASSWORD: Gabriel123
       POSTGRES_USER: gabriel
       POSTGRES_DB: gabriel_cameras_db
+
+  db-tests:
+    image: postgres:16
+    restart: always
+    ports:
+      - 5433:5433
+    # set shared memory limit when using docker-compose
+    shm_size: 128mb
+    environment:
+      POSTGRES_PASSWORD: Gabriel123
+      POSTGRES_USER: gabriel
+      POSTGRES_DB: gabriel_cameras_db_test
       
   pgadmin:
     image: dpage/pgadmin4
@@ -35,3 +47,4 @@ services:
       - "5050:80"
     depends_on:
       - db
+      - db-tests
