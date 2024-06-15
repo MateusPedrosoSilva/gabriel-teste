@@ -1,12 +1,18 @@
 import { Camera } from './camera';
+import { v4 as uuidv4 } from 'uuid';
 
 describe('Camera Unit Test', () => {
   it('should create a new camera', () => {
-    const camera = new Camera('123', 'camera-1', '12.255.0.123', true, '111');
-    expect(camera.id).toBe('123');
-    expect(camera.name).toBe('camera-1');
-    expect(camera.ip).toBe('12.255.0.123');
-    expect(camera.isEnable).toBe(true);
-    expect(camera.custumerId).toBe('111');
+    const id = uuidv4();
+    const name = 'camera-1';
+    const ip = '12.255.0.123';
+    const isEnable = true;
+    const custumerId = '111';
+    const camera = new Camera(id, name, ip, isEnable, custumerId);
+    expect(camera.id).toBe(id);
+    expect(camera.name).toBe(name);
+    expect(camera.ip).toBe(ip);
+    expect(camera.isEnable).toBe(isEnable);
+    expect(camera.custumerId).toBe(custumerId);
   });
 });
