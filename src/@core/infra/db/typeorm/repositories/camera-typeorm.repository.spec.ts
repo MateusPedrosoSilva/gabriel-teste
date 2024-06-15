@@ -41,4 +41,15 @@ describe('CameraTypeormRepository tests', () => {
     expect(model.isEnable).toBe(isEnable);
     expect(model.custumerId).toBe(custumerId);
   });
+
+  it('should not insert a new user', async () => {
+    const id = uuidv4();
+    const name = 'Camera-1';
+    const ip = '1123.12.0.2';
+    const isEnable = true;
+    const custumerId = uuidv4();
+    expect(() => {
+      new Camera(id, name, ip, isEnable, custumerId);
+    }).toThrow(Error);
+  });
 });
