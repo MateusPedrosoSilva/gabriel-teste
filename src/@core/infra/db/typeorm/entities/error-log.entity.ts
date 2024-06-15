@@ -6,7 +6,7 @@ export class ErrorLogTypeormEntity {
   id: string;
 
   @Column()
-  occurred_At: Date;
+  occurred_at: Date;
 
   @Column()
   cameda_id: string;
