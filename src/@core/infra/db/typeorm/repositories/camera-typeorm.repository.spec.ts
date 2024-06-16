@@ -43,6 +43,17 @@ describe('CameraTypeormRepository tests', () => {
     expect(model.custumerId).toBe(custumerId);
   });
 
+  it('should throw error for bad ip format', async () => {
+    const id = uuidv4();
+    const name = 'Camera-1';
+    const ip = '1123.12.0.2';
+    const isEnable = true;
+    const custumerId = uuidv4();
+    expect(() => {
+      new Camera(id, name, ip, isEnable, custumerId);
+    }).toThrow(Error('Invalid IP address'));
+  });
+
   it('should delete a camera', async () => {
     const id = uuidv4();
     const name = 'Camera-1';
@@ -59,28 +70,35 @@ describe('CameraTypeormRepository tests', () => {
     expect(modelNotFound).toBeNull();
   });
 
-  it('should throw error for bad ip format', async () => {
-    const id = uuidv4();
-    const name = 'Camera-1';
-    const ip = '1123.12.0.2';
-    const isEnable = true;
-    const custumerId = uuidv4();
-    expect(() => {
-      new Camera(id, name, ip, isEnable, custumerId);
-    }).toThrow(Error);
-  });
-
   it('should throw Error for camera not found when deleting', async () => {
     const id = uuidv4();
     const name = 'Camera-1';
     const ip = '123.12.0.2';
     const isEnable = true;
     const custumerId = uuidv4();
-    const wrongId = uuidv4();
     const camera = new Camera(id, name, ip, isEnable, custumerId);
     await cameraRepository.insert(camera);
+    const wrongId = uuidv4();
     expect(async () => {
       await cameraRepository.disable(wrongId);
-    }).rejects.toThrow(Error);
+    }).rejects.toThrow(Error('camera not found'));
+  });
+
+  it('should throw error for already added ip for custumer', async () => {
+    const id = uuidv4();
+    const name = 'Camera-1';
+    const ip = '123.12.0.2';
+    const isEnable = true;
+    const custumerId = uuidv4();
+    const camera = new Camera(id, name, ip, isEnable, custumerId);
+    await cameraRepository.insert(camera);
+    const newId = uuidv4();
+    const newName = 'Camera-2';
+    const cameraSameIP = new Camera(newId, newName, ip, isEnable, custumerId);
+    expect(async () => {
+      await cameraRepository.insert(cameraSameIP);
+    }).rejects.toThrow(
+      Error('camera with this IP already added to this custumer'),
+    );
   });
 });

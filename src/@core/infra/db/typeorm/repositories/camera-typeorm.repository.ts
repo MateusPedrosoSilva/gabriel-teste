@@ -9,6 +9,11 @@ export class CameraTypeormRepository implements CameraRepository {
   ) {}
 
   async insert(camera: Camera): Promise<void> {
+    const sameIpCamera = await this.typeOrmRepository.findOneBy({
+      ip: camera.ip,
+    });
+    if (sameIpCamera.custumerId == camera.custumerId)
+      throw new Error('camera with this IP already added to this custumer');
     const model = this.typeOrmRepository.create(camera);
     await this.typeOrmRepository.save(model);
   }
