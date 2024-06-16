@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryColumn } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryColumn } from 'typeorm';
+import { CameraTypeormEntity } from './camera.entity';
 
 @Entity('users')
 export class UserTypeormEntity {
@@ -7,4 +8,7 @@ export class UserTypeormEntity {
 
   @Column()
   name: string;
+
+  @OneToMany(() => CameraTypeormEntity, (camera) => camera.user)
+  cameras: CameraTypeormEntity[];
 }

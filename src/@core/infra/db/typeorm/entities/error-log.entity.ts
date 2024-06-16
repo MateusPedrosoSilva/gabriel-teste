@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, PrimaryColumn } from 'typeorm';
+import { CameraTypeormEntity } from './camera.entity';
 
 @Entity('error_log')
 export class ErrorLogTypeormEntity {
@@ -9,6 +10,9 @@ export class ErrorLogTypeormEntity {
     type: 'timestamp',
   })
   occurred_at: Date;
+
+  @ManyToOne(() => CameraTypeormEntity, (camera) => camera.alertLogs)
+  camera: CameraTypeormEntity;
 
   @Column()
   camera_id: string;
