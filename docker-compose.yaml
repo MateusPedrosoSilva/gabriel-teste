@@ -24,6 +24,7 @@ services:
       POSTGRES_PASSWORD: Gabriel123
       POSTGRES_USER: gabriel
       POSTGRES_DB: gabriel_cameras_db
+      PGTZ: UTC
 
   db-tests:
     image: postgres:16
@@ -36,6 +37,7 @@ services:
       POSTGRES_PASSWORD: Gabriel123
       POSTGRES_USER: gabriel
       POSTGRES_DB: gabriel_cameras_db_test
+      PGTZ: UTC
       
   pgadmin:
     image: dpage/pgadmin4

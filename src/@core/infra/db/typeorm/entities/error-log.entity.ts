@@ -5,7 +5,9 @@ export class ErrorLogTypeormEntity {
   @PrimaryColumn('uuid')
   id: string;
 
-  @Column()
+  @Column({
+    type: 'timestamp',
+  })
   occurred_at: Date;
 
   @Column()

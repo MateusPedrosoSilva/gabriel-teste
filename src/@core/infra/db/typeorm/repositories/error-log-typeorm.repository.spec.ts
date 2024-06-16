@@ -33,6 +33,7 @@ describe('ErrorLogTypeormRepository tests', () => {
     await errorLogRepository.insert(errorLog);
     const model = await typeormRepository.findOneBy({ id });
     expect(model).not.toBeNull();
+    expect(model).toEqual(errorLog);
     expect(model.id).toBe(id);
     expect(model.occurred_at).toStrictEqual(occurred_at);
     expect(model.camera_id).toBe(camera_id);
