@@ -12,4 +12,10 @@ export class CameraTypeormRepository implements CameraRepository {
     const model = this.typeOrmRepository.create(camera);
     await this.typeOrmRepository.save(model);
   }
+
+  async disable(id: string): Promise<void> {
+    const camera = await this.typeOrmRepository.findOneBy({ id });
+    if (!camera) throw new Error('camera not found');
+    await this.typeOrmRepository.delete(camera);
+  }
 }
