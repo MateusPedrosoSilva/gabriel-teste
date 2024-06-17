@@ -10,7 +10,7 @@ export class Camera {
     name: string,
     ip: string,
     isEnable: boolean,
-    custumer_id: string,
+    custumerId: string,
   ) {
     if (!this.validateIp(ip)) throw new Error('Invalid IP address');
 
@@ -18,7 +18,7 @@ export class Camera {
     this.name = name;
     this.ip = ip;
     this.isEnable = isEnable;
-    this.custumerId = custumer_id;
+    this.custumerId = custumerId;
   }
 
   validateIp(ip: string): boolean {

@@ -3,6 +3,8 @@ import { v4 as uuidv4 } from 'uuid';
 import { ErrorLogTypeormRepository } from './error-log-typeorm.repository';
 import { ErrorLogTypeormEntity } from '../entities/error-log.entity';
 import { ErrorLog } from '../../../../domain/error-log';
+import { UserTypeormEntity } from '../entities/user.entity';
+import { CameraTypeormEntity } from '../entities/camera.entity';
 
 describe('ErrorLogTypeormRepository tests', () => {
   let dataSource: DataSource;
@@ -17,7 +19,7 @@ describe('ErrorLogTypeormRepository tests', () => {
       database: 'gabriel_cameras_db',
       username: 'gabriel',
       password: 'Gabriel123',
-      entities: [ErrorLogTypeormEntity],
+      entities: [UserTypeormEntity, CameraTypeormEntity, ErrorLogTypeormEntity],
       synchronize: true,
     });
     await dataSource.initialize();

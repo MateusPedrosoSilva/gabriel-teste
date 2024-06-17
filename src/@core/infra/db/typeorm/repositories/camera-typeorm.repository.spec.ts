@@ -3,6 +3,8 @@ import { v4 as uuidv4 } from 'uuid';
 import { CameraTypeormEntity } from '../entities/camera.entity';
 import { CameraTypeormRepository } from './camera-typeorm.repository';
 import { Camera } from '../../../../domain/camera';
+import { UserTypeormEntity } from '../entities/user.entity';
+import { ErrorLogTypeormEntity } from '../entities/error-log.entity';
 
 describe('CameraTypeormRepository tests', () => {
   let dataSource: DataSource;
@@ -10,6 +12,7 @@ describe('CameraTypeormRepository tests', () => {
   let cameraRepository: CameraTypeormRepository;
 
   beforeEach(async () => {
+    // TODO: Adicionar variaveis de ambiente
     dataSource = new DataSource({
       type: 'postgres',
       host: '0.0.0.0',
@@ -17,7 +20,7 @@ describe('CameraTypeormRepository tests', () => {
       database: 'gabriel_cameras_db',
       username: 'gabriel',
       password: 'Gabriel123',
-      entities: [CameraTypeormEntity],
+      entities: [UserTypeormEntity, CameraTypeormEntity, ErrorLogTypeormEntity],
       synchronize: true,
     });
     await dataSource.initialize();
