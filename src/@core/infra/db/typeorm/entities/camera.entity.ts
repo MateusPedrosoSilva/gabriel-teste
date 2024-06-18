@@ -16,11 +16,11 @@ export class CameraTypeormEntity {
   @Column()
   isEnable: boolean;
 
-  @ManyToOne(() => UserTypeormEntity, (user) => user.cameras)
-  user: UserTypeormEntity;
-
   @Column()
   custumerId: string;
+
+  @ManyToOne(() => UserTypeormEntity, (user) => user.cameras)
+  user: UserTypeormEntity;
 
   @OneToMany(() => ErrorLogTypeormEntity, (alertLog) => alertLog.camera_id)
   alertLogs: ErrorLogTypeormEntity[];

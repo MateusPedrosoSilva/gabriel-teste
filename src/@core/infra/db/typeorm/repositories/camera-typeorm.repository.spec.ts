@@ -57,7 +57,7 @@ describe('CameraTypeormRepository tests', () => {
     }).toThrow(Error('Invalid IP address'));
   });
 
-  it('should delete a camera', async () => {
+  it('should disable a camera', async () => {
     const id = uuidv4();
     const name = 'Camera-1';
     const ip = '123.12.0.2';
@@ -69,11 +69,11 @@ describe('CameraTypeormRepository tests', () => {
     expect(model).not.toBeNull();
     expect(model).toEqual(camera);
     await cameraRepository.disable(model.id);
-    const modelNotFound = await typeormRepository.findOneBy({ id });
-    expect(modelNotFound).toBeNull();
+    const modelDisabled = await typeormRepository.findOneBy({ id });
+    expect(modelDisabled.isEnable).toBe(false);
   });
 
-  it('should throw Error for camera not found when deleting', async () => {
+  it('should throw Error for camera not found when disabling', async () => {
     const id = uuidv4();
     const name = 'Camera-1';
     const ip = '123.12.0.2';
