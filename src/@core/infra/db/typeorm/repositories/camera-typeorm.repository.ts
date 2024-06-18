@@ -24,4 +24,17 @@ export class CameraTypeormRepository implements CameraRepository {
     if (!camera) throw new Error('camera not found');
     await this.typeOrmRepository.update(id, { isEnable: false });
   }
+
+  async list(status: boolean): Promise<any[]> {
+    const cameras = await this.typeOrmRepository.findBy({ isEnable: status });
+    if (!cameras) throw new Error(`no cameras with status ${status}`);
+    return cameras;
+  }
+
+  async removeAllCameras(): Promise<void> {
+    const cameras = await this.typeOrmRepository.find();
+    for (const camera of cameras) {
+      await this.typeOrmRepository.remove(camera);
+    }
+  }
 }

@@ -104,4 +104,27 @@ describe('CameraTypeormRepository tests', () => {
       Error('camera with this IP already added to this custumer'),
     );
   });
+
+  it('should list cameras for status true (active)', async () => {
+    const cameras = await cameraRepository.list(true);
+    const id = uuidv4();
+    const name = 'Camera-1';
+    const ip = '123.12.0.2';
+    const isEnable = true;
+    const custumerId = uuidv4();
+    const camera = new Camera(id, name, ip, isEnable, custumerId);
+    await cameraRepository.insert(camera);
+    expect(await cameraRepository.list(true)).toHaveLength(cameras.length + 1);
+    await cameraRepository.disable(id);
+    expect(await cameraRepository.list(true)).toHaveLength(cameras.length);
+  });
+
+  it('should throw error for no cameras registered', async () => {
+    await cameraRepository.removeAllCameras();
+    const cameras = await typeormRepository.find();
+    console.log(cameras);
+    expect(async () => {
+      await cameraRepository.list(true);
+    }).rejects.toThrow(Error);
+  });
 });
