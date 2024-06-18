@@ -87,7 +87,7 @@ describe('CameraTypeormRepository tests', () => {
     }).rejects.toThrow(Error('camera not found'));
   });
 
-  it('should throw error for already added ip for custumer', async () => {
+  it('should throw error for already added ip camera to custumer', async () => {
     const id = uuidv4();
     const name = 'Camera-1';
     const ip = '123.12.0.2';
